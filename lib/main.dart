@@ -15,16 +15,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-      designSize: const Size(375, 812),
+      designSize: const Size(430, 945),
       builder: (_, child) {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
-            fontFamily: 'Lexend_Deca',
             scaffoldBackgroundColor: AppColors.background,
-            colorScheme: ColorScheme.fromSeed(seedColor: AppColors.primary
+            // colorScheme: ColorScheme.fromSeed(seedColor: AppColors.primary)
               
-              )
           ),
           home:
             ExploreScreen(),
