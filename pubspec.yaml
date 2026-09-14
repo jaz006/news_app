@@ -19,7 +19,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: ^3.11.0
+  sdk: ^3.12.2
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -34,6 +34,10 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.8
+  flutter_svg:
+  flutter_screenutil:
+  dio: ^5.11.1
+  dartz: ^0.10.1
 
 dev_dependencies:
   flutter_test:
@@ -58,8 +62,8 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
+  assets:
+   - assets/images/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
@@ -73,10 +77,28 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  # fonts:
+  fonts:
+   - family: Lexend_Deca
+     fonts:
+       - asset: assets/fonts/Lexend_Deca/LexendDeca-Thin.ttf
+         weight: 100
+       - asset: assets/fonts/Lexend_Deca/LexendDeca-ExtraLight.ttf
+         weight: 200
+       - asset: assets/fonts/Lexend_Deca/LexendDeca-Light.ttf
+         weight: 300
+       - asset: assets/fonts/Lexend_Deca/LexendDeca-Regular.ttf
+         weight: 400
+       - asset: assets/fonts/Lexend_Deca/LexendDeca-Medium.ttf
+         weight: 500
+       - asset: assets/fonts/Lexend_Deca/LexendDeca-SemiBold.ttf
+         weight: 600
+       - asset: assets/fonts/Lexend_Deca/LexendDeca-Bold.ttf
+         weight: 700
+       - asset: assets/fonts/Lexend_Deca/LexendDeca-ExtraBold.ttf
+         weight: 800
+       - asset: assets/fonts/Lexend_Deca/LexendDeca-Black.ttf
+         weight: 900
   #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro
