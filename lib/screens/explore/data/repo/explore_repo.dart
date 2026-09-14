@@ -4,44 +4,38 @@ import 'package:news_app/core/network/end_points.dart';
 import 'package:news_app/screens/explore/data/models/artical_model.dart';
 
 class ExploreRepo {
-
   ApiHelper apiHelper = ApiHelper(EndPoints.newsBaseUrl);
 
-  Future<Either<String, List<ArticleModel>>> getArticles() async {
+  Future<Either<String, List<ArticleModel>>> getArticles({
+  required String category,
+}) async {
+  try {
+    var response = await apiHelper.getRequest(
+      endPoint: EndPoints.topHeadlines,
+      queryParams: {
+        'apiKey': '836086f05b344448a16dd41ee51c6320',
+        'category': category,
+        'country': 'us',
+      },
+    );
 
-    try {
+    var jsonResponse = response.data as Map<String, dynamic>;
 
-      var response = await apiHelper.getRequest(
-        endPoint: EndPoints.everything,
-        queryParams: {
-          'q': 'we',
-          'apiKey': '836086f05b344448a16dd41ee51c6320',
-          'language': 'en',
-          'sortBy': 'popularity',
-        },
-      );
+    var articlesJson = jsonResponse['articles'] as List;
 
-      var jsonResponse =
-          response.data as Map<String, dynamic>;
+    List<ArticleModel> articles = [];
 
-      var articlesJson =
-          jsonResponse['articles'] as List;
-
-      List<ArticleModel> articles = [];
-
-      for (var article in articlesJson) {
-        articles.add(
-          ArticleModel.fromJson(article),
-        );
-      }
-
-      return right(articles);
-
-    } catch (e) {
-
-      return left(
-        apiHelper.handleException(e),
+    for (var article in articlesJson) {
+      articles.add(
+        ArticleModel.fromJson(article),
       );
     }
+
+    return right(articles);
+  } catch (e) {
+    return left(
+      apiHelper.handleException(e),
+    );
   }
+}
 }
