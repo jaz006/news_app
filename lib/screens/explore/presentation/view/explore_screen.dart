@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:news_app/core/utilies/app_assests.dart';
 import 'package:news_app/core/utilies/app_colors.dart';
@@ -54,7 +55,6 @@ class _ExploreScreenState extends State<ExploreScreen> {
   void changeCategory(String category) {
     setState(() {
       selectedCategory = category;
-
       articlesFuture = getArticles(category);
     });
   }
@@ -64,203 +64,236 @@ class _ExploreScreenState extends State<ExploreScreen> {
     return Scaffold(
       backgroundColor: AppColors.background,
 
-      body: SafeArea(
-        child: FutureBuilder<List<ArticleModel>>(
-          future: articlesFuture,
+      // ==========================================
+      // Body
+      // ==========================================
 
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
-            }
+      body: FutureBuilder<List<ArticleModel>>(
+        future: articlesFuture,
 
-            if (snapshot.hasError) {
-              return Center(
-                child: Text(
-                  snapshot.error.toString(),
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(
-                    fontSize: 16,
-                    color: Colors.black,
-                  ),
-                ),
-              );
-            }
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
 
-            if (!snapshot.hasData || snapshot.data!.isEmpty) {
-              return const Center(
-                child: Text(
-                  'No articles found',
-                  style: TextStyle(
-                    fontSize: 18,
-                  ),
-                ),
-              );
-            }
-
-            final List<ArticleModel> articles = snapshot.data!;
-
-            return SingleChildScrollView(
-              child: Padding(
-                padding: const EdgeInsets.only(
-                  left: 24,
-                  right: 24,
-                  top: 20,
-                  bottom: 30,
-                ),
-
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-
-                  children: [
-
-                    // ==========================================
-                    // Header
-                    // ==========================================
-
-                    Row(
-                      mainAxisAlignment:
-                          MainAxisAlignment.spaceBetween,
-
-                      children: [
-
-                        const Text(
-                          'Explore',
-                          style: TextStyle(
-                            fontSize: 32,
-                            fontWeight: FontWeight.w600,
-                            color: Colors.black,
-                          ),
-                        ),
-
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) =>
-                                    const SearchScreen(),
-                              ),
-                            );
-                          },
-
-                          child: SvgPicture.asset(
-                            AppSvgs.search,
-                            width: 40,
-                            height: 40,
-                          ),
-                        ),
-                      ],
-                    ),
-
-                    const SizedBox(height: 25),
-
-                    // ==========================================
-                    // Categories
-                    // ==========================================
-
-                    SizedBox(
-                      height: 48,
-
-                      child: ListView.builder(
-                        scrollDirection: Axis.horizontal,
-
-                        physics:
-                            const BouncingScrollPhysics(),
-
-                        itemCount: categories.length,
-
-                        itemBuilder: (context, index) {
-
-                          final String category =
-                              categories[index];
-
-                          return GestureDetector(
-                            onTap: () {
-                              changeCategory(category);
-                            },
-
-                            child: _category(
-                              text: category,
-
-                              selected:
-                                  category ==
-                                      selectedCategory,
-                            ),
-                          );
-                        },
-                      ),
-                    ),
-
-                    const SizedBox(height: 28),
-
-                    // ==========================================
-                    // Main Article
-                    // ==========================================
-
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) =>
-                                ArticleScreen(
-                              article: articles[0],
-                            ),
-                          ),
-                        );
-                      },
-
-                      child: _mainArticle(
-                        articles[0],
-                      ),
-                    ),
-
-                    const SizedBox(height: 30),
-
-                    // ==========================================
-                    // Small Articles
-                    // ==========================================
-
-                    if (articles.length > 1)
-                      _smallArticle(
-                        context,
-                        articles[1],
-                      ),
-
-                    if (articles.length > 1)
-                      const SizedBox(height: 25),
-
-                    if (articles.length > 2)
-                      _smallArticle(
-                        context,
-                        articles[2],
-                      ),
-
-                    if (articles.length > 2)
-                      const SizedBox(height: 25),
-
-                    if (articles.length > 3)
-                      _smallArticle(
-                        context,
-                        articles[3],
-                      ),
-
-                    if (articles.length > 3)
-                      const SizedBox(height: 25),
-
-                    if (articles.length > 4)
-                      _smallArticle(
-                        context,
-                        articles[4],
-                      ),
-                  ],
+          if (snapshot.hasError) {
+            return Center(
+              child: Text(
+                snapshot.error.toString(),
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                  fontSize: 16,
+                  color: Colors.black,
                 ),
               ),
             );
-          },
-        ),
+          }
+
+          if (!snapshot.hasData || snapshot.data!.isEmpty) {
+            return const Center(
+              child: Text(
+                'No articles found',
+                style: TextStyle(
+                  fontSize: 18,
+                ),
+              ),
+            );
+          }
+
+          final List<ArticleModel> articles = snapshot.data!;
+
+          return SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+
+              children: [
+
+                // ==========================================
+                // Header
+                // ==========================================
+
+                Container(
+                  width: double.infinity,
+                  color: AppColors.primary,
+
+                  child: SafeArea(
+                    bottom: false,
+
+                    child: Padding(
+                      padding: const EdgeInsets.only(
+                        left: 24,
+                        right: 24,
+                        top: 20,
+                        bottom: 20,
+                      ),
+
+                      child: Row(
+                        mainAxisAlignment:
+                            MainAxisAlignment.spaceBetween,
+
+                        children: [
+
+                          const Text(
+                            'Explore',
+                            style: TextStyle(
+                              fontSize: 32,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.black,
+                            ),
+                          ),
+
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      const SearchScreen(),
+                                ),
+                              );
+                            },
+
+                            child: SvgPicture.asset(
+                              AppSvgs.search,
+                              width: 40,
+                              height: 40,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+
+                // ==========================================
+                // Rest of Content
+                // ==========================================
+
+                Padding(
+                  padding: const EdgeInsets.only(
+                    left: 24,
+                    right: 24,
+                    top: 25,
+                    bottom: 30,
+                  ),
+
+                  child: Column(
+                    crossAxisAlignment:
+                        CrossAxisAlignment.start,
+
+                    children: [
+
+                      // ==========================================
+                      // Categories
+                      // ==========================================
+
+                      SizedBox(
+                        height: 48,
+
+                        child: ListView.builder(
+                          scrollDirection:
+                              Axis.horizontal,
+
+                          physics:
+                              const BouncingScrollPhysics(),
+
+                          itemCount:
+                              categories.length,
+
+                          itemBuilder:
+                              (context, index) {
+
+                            final String category =
+                                categories[index];
+
+                            return GestureDetector(
+                              onTap: () {
+                                changeCategory(
+                                  category,
+                                );
+                              },
+
+                              child: _category(
+                                text: category,
+
+                                selected:category ==selectedCategory,
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+
+                      const SizedBox(height: 28),
+
+                      // ==========================================
+                      // Main Article
+                      // ==========================================
+
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  ArticleScreen(
+                                article: articles[0],
+                              ),
+                            ),
+                          );
+                        },
+
+                        child: _mainArticle(
+                          articles[0],
+                        ),
+                      ),
+
+                      const SizedBox(height: 30),
+
+                      // ==========================================
+                      // Small Articles
+                      // ==========================================
+
+                      if (articles.length > 1)
+                        _smallArticle(
+                          context,
+                          articles[1],
+                        ),
+
+                      if (articles.length > 1)
+                        const SizedBox(height: 25),
+
+                      if (articles.length > 2)
+                        _smallArticle(
+                          context,
+                          articles[2],
+                        ),
+
+                      if (articles.length > 2)
+                        const SizedBox(height: 25),
+
+                      if (articles.length > 3)
+                        _smallArticle(
+                          context,
+                          articles[3],
+                        ),
+
+                      if (articles.length > 3)
+                        const SizedBox(height: 25),
+
+                      if (articles.length > 4)
+                        _smallArticle(
+                          context,
+                          articles[4],
+                        ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          );
+        },
       ),
     );
   }
@@ -285,10 +318,11 @@ class _ExploreScreenState extends State<ExploreScreen> {
 
       decoration: BoxDecoration(
         color: selected
-            ? const Color(0xFFE9EDEC)
+            ? AppColors.primary
             : Colors.transparent,
 
-        borderRadius: BorderRadius.circular(25),
+        borderRadius:
+            BorderRadius.circular(25),
 
         border: Border.all(
           color: selected
@@ -376,7 +410,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
 
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: Colors.grey.shade300,
+                color: Colors.grey
               ),
 
               child: const Icon(
