@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:news_app/core/utilies/app_assests.dart';
 import 'package:news_app/core/utilies/app_colors.dart';
-import 'package:news_app/screens/artical/presentaion/view/artical_screen.dart';
+import 'package:news_app/screens/explore/presentation/view/artical_screen.dart';
 import 'package:news_app/screens/explore/data/models/artical_model.dart';
 import 'package:news_app/screens/explore/data/repo/explore_repo.dart';
+import 'package:news_app/screens/explore/presentation/view/search_screen.dart';
 
 class ExploreScreen extends StatefulWidget {
   const ExploreScreen({super.key});
@@ -582,59 +583,5 @@ class _ExploreScreenState extends State<ExploreScreen> {
     } catch (e) {
       return date;
     }
-  }
-}
-
-// ======================================================
-// Search Screen
-// ======================================================
-
-class SearchScreen extends StatelessWidget {
-  const SearchScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.background,
-
-      appBar: AppBar(
-        backgroundColor:
-            AppColors.background,
-
-        elevation: 0,
-
-        leading: IconButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-
-          icon: SvgPicture.asset(
-            AppSvgs.left_arrow,
-            width: 24,
-            height: 24,
-          ),
-        ),
-
-        title: const Text(
-          'Search',
-
-          style: TextStyle(
-            color: Colors.black,
-            fontSize: 24,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
-      ),
-
-      body: const Center(
-        child: Text(
-          'Search Screen',
-
-          style: TextStyle(
-            fontSize: 20,
-          ),
-        ),
-      ),
-    );
   }
 }

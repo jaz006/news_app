@@ -2,7 +2,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:news_app/core/utilies/app_colors.dart';
-import 'package:news_app/screens/artical/presentaion/view/artical_screen.dart';
 import 'package:news_app/screens/explore/presentation/view/explore_screen.dart';
 
 
