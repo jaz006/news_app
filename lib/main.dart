@@ -21,6 +21,12 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
             scaffoldBackgroundColor: AppColors.background,
+            textTheme: const TextTheme(
+              bodyMedium: TextStyle(
+                fontSize: 16,
+                color: Colors.black,
+              )
+            )
             // colorScheme: ColorScheme.fromSeed(seedColor: AppColors.primary)
               
           ),
