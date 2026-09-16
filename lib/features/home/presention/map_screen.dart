@@ -5,6 +5,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:news_app/core/helper/app_navigation.dart';
 import 'package:news_app/core/utilies/app_colors.dart';
 import 'package:news_app/features/home/presention/home_screen.dart';
+import 'package:news_app/features/home/presention/main_screen.dart';
 
 class MapScreen extends StatefulWidget {
   const MapScreen({super.key});
@@ -137,7 +138,7 @@ class _MapScreenState extends State<MapScreen> {
             height: 56,
             child: ElevatedButton(
               onPressed: () {
-              MyNavigator.goTo(context, toPage: HomeScreen(),);
+              MyNavigator.goTo(context, toPage: MainScreen(),);
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color(0xFF2D5BD0),

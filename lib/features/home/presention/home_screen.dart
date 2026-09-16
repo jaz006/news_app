@@ -17,7 +17,16 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            
+            Center(
+              child: Text(
+                'Home Screen',
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  color: const Color.fromARGB(255, 6, 24, 66),
+                ),
+              ),
+            ),
           ],
         ),
       ),
