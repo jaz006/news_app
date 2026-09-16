@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:news_app/core/utilies/app_assests.dart';
 import 'package:news_app/core/utilies/app_colors.dart';
-import 'package:news_app/screens/explore/data/models/artical_model.dart';
+import 'package:news_app/features/explore/data/models/artical_model.dart';
 
 class ArticleScreen extends StatefulWidget {
   final ArticleModel article;

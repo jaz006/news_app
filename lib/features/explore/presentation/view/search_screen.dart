@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:news_app/core/utilies/app_assests.dart';
 import 'package:news_app/core/utilies/app_colors.dart';
-import 'package:news_app/screens/explore/presentation/view/search_results_screen.dart';
+import 'package:news_app/features/explore/presentation/view/search_results_screen.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});

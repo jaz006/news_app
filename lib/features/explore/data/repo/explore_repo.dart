@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:news_app/core/network/api_helper.dart';
 import 'package:news_app/core/network/end_points.dart';
-import 'package:news_app/screens/explore/data/models/artical_model.dart';
+import 'package:news_app/features/explore/data/models/artical_model.dart';
 
 class ExploreRepo {
   ApiHelper apiHelper = ApiHelper(EndPoints.newsBaseUrl);

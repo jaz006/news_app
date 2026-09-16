@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:news_app/core/utilies/app_assests.dart';
 import 'package:news_app/core/utilies/app_colors.dart';
-import 'package:news_app/screens/explore/data/models/artical_model.dart';
-import 'package:news_app/screens/explore/data/repo/search_repo.dart';
-import 'package:news_app/screens/explore/presentation/view/artical_screen.dart';
+import 'package:news_app/features/explore/data/models/artical_model.dart';
+import 'package:news_app/features/explore/data/repo/search_repo.dart';
+import 'package:news_app/features/explore/presentation/view/artical_screen.dart';
 
 class SearchResultsScreen extends StatefulWidget {
   final String searchText;

@@ -38,6 +38,8 @@ dependencies:
   flutter_screenutil:
   dio: ^5.11.1
   dartz: ^0.10.1
+  google_maps_flutter: ^2.18.0
+  flutter_google_location_picker: ^0.0.6
 
 dev_dependencies:
   flutter_test:
