@@ -124,20 +124,21 @@ class _HomeScreenState extends State<HomeScreen> {
 
 
                // Horizontal list of popular articles
-SizedBox(
-  height: 260,
-  child: ListView.separated(
-    scrollDirection: Axis.horizontal,
-    itemCount: popular.length,
-    separatorBuilder: (context, index) => const SizedBox(width: 14),
-    itemBuilder: (context, index) {
-      return SizedBox(
-        width: 170,
-        child: _PopularCard(article: popular[index]),
-      );
-    },
+ SizedBox(
+    height: 260,
+    child: ListView.separated(
+      scrollDirection: Axis.horizontal,
+      itemCount: popular.length,
+      separatorBuilder: (context, index) => const SizedBox(width: 14),
+      itemBuilder: (context, index) {
+        return SizedBox(
+          width: 170,
+          child: _PopularCard(article: popular[index]),
+        );
+      },
+    ),
   ),
-),
+
 
 
                   const SizedBox(height: 20),
@@ -233,39 +234,43 @@ class _PopularCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        ClipRRect(
-          borderRadius: BorderRadius.circular(16),
-          child: SizedBox(
-            height: 170,
-            width: double.infinity,
-            child: article.urlToImage != null
-                ? Image.network(article.urlToImage!, fit: BoxFit.cover)
-                : Container(color: Colors.grey.shade300),
+    return InkWell(
+      onTap: () {
+      },
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.circular(16),
+            child: SizedBox(
+              height: 170,
+              width: double.infinity,
+              child: article.urlToImage != null
+                  ? Image.network(article.urlToImage!, fit: BoxFit.cover)
+                  : Container(color: Colors.grey.shade300),
+            ),
           ),
-        ),
-        const SizedBox(height: 6),
-        Text(
-          article.title,
-          maxLines: 2,
-          overflow: TextOverflow.ellipsis,
-          style: const TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 14,
-            height: 1.2,
+          const SizedBox(height: 6),
+          Text(
+            article.title,
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
+            style: const TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 14,
+              height: 1.2,
+            ),
           ),
-        ),
-        const SizedBox(height: 2),
-        Text(
-          article.source.name,
-          maxLines: 1,
-          overflow: TextOverflow.ellipsis,
-          style: TextStyle(color: Colors.grey.shade500, fontSize: 12),
-        ),
-      ],
+          const SizedBox(height: 2),
+          Text(
+            article.source.name,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: TextStyle(color: Colors.grey.shade500, fontSize: 12),
+          ),
+        ],
+      ),
     );
   }
 }

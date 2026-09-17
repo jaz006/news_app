@@ -1,3 +1,5 @@
+import 'package:news_app/features/explore/data/models/artical_model.dart';
+
 class NewsResponse {
   final String status;
   final int totalResults;
@@ -53,6 +55,8 @@ class Article {
       content: json['content'],
     );
   }
+
+ 
 }
 
 class Source {
