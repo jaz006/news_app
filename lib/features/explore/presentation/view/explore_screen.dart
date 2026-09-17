@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:news_app/core/utilies/app_assests.dart';
 import 'package:news_app/core/utilies/app_colors.dart';
@@ -14,7 +13,6 @@ class ExploreScreen extends StatefulWidget {
   @override
   State<ExploreScreen> createState() => _ExploreScreenState();
 }
-
 class _ExploreScreenState extends State<ExploreScreen> {
   String selectedCategory = 'Business';
 
@@ -33,7 +31,6 @@ class _ExploreScreenState extends State<ExploreScreen> {
   @override
   void initState() {
     super.initState();
-
     articlesFuture = getArticles('Business');
   }
 
@@ -63,21 +60,14 @@ class _ExploreScreenState extends State<ExploreScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.background,
-
-      // ==========================================
-      // Body
-      // ==========================================
-
       body: FutureBuilder<List<ArticleModel>>(
         future: articlesFuture,
-
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(
               child: CircularProgressIndicator(),
             );
           }
-
           if (snapshot.hasError) {
             return Center(
               child: Text(
@@ -107,20 +97,16 @@ class _ExploreScreenState extends State<ExploreScreen> {
           return SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-
               children: [
 
                 // ==========================================
                 // Header
-                // ==========================================
 
                 Container(
                   width: double.infinity,
                   color: AppColors.primary,
-
                   child: SafeArea(
                     bottom: false,
-
                     child: Padding(
                       padding: const EdgeInsets.only(
                         left: 24,
@@ -130,35 +116,27 @@ class _ExploreScreenState extends State<ExploreScreen> {
                       ),
 
                       child: Row(
-                        mainAxisAlignment:
-                            MainAxisAlignment.spaceBetween,
-
+                        mainAxisAlignment:MainAxisAlignment.spaceBetween,
                         children: [
-
-                          const Text(
-                            'Explore',
+                          const Text('Explore',
                             style: TextStyle(
                               fontSize: 32,
                               fontWeight: FontWeight.w600,
                               color: Colors.black,
                             ),
                           ),
-
                           GestureDetector(
                             onTap: () {
-                              Navigator.push(
-                                context,
+                              Navigator.push(context,
                                 MaterialPageRoute(
-                                  builder: (context) =>
-                                      const SearchScreen(),
+                                  builder: (context) =>const SearchScreen(),
                                 ),
                               );
                             },
-
                             child: SvgPicture.asset(
-                              AppSvgs.search,
-                              width: 40,
-                              height: 40,
+                              AppSvgs.SearchOutline,
+                              width: 16,
+                              height: 16,
                             ),
                           ),
                         ],
@@ -169,7 +147,6 @@ class _ExploreScreenState extends State<ExploreScreen> {
 
                 // ==========================================
                 // Rest of Content
-                // ==========================================
 
                 Padding(
                   padding: const EdgeInsets.only(
@@ -179,34 +156,19 @@ class _ExploreScreenState extends State<ExploreScreen> {
                     bottom: 30,
                   ),
 
-                  child: Column(
-                    crossAxisAlignment:
-                        CrossAxisAlignment.start,
-
+                  child: Column(crossAxisAlignment:CrossAxisAlignment.start,
                     children: [
 
                       // ==========================================
                       // Categories
-                      // ==========================================
-
                       SizedBox(
                         height: 48,
-
                         child: ListView.builder(
-                          scrollDirection:
-                              Axis.horizontal,
-
-                          physics:
-                              const BouncingScrollPhysics(),
-
-                          itemCount:
-                              categories.length,
-
-                          itemBuilder:
-                              (context, index) {
-
-                            final String category =
-                                categories[index];
+                          scrollDirection:Axis.horizontal,
+                          physics:const BouncingScrollPhysics(),
+                          itemCount:categories.length,
+                          itemBuilder:(context, index) {
+                            final String category =categories[index];
 
                             return GestureDetector(
                               onTap: () {
@@ -217,7 +179,6 @@ class _ExploreScreenState extends State<ExploreScreen> {
 
                               child: _category(
                                 text: category,
-
                                 selected:category ==selectedCategory,
                               ),
                             );
@@ -229,63 +190,48 @@ class _ExploreScreenState extends State<ExploreScreen> {
 
                       // ==========================================
                       // Main Article
-                      // ==========================================
 
                       GestureDetector(
                         onTap: () {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) =>
-                                  ArticleScreen(
+                              builder: (context) =>ArticleScreen(
                                 article: articles[0],
                               ),
                             ),
                           );
                         },
-
-                        child: _mainArticle(
-                          articles[0],
+                        child: _mainArticle(articles[0],
                         ),
                       ),
-
                       const SizedBox(height: 30),
-
                       // ==========================================
                       // Small Articles
-                      // ==========================================
 
                       if (articles.length > 1)
-                        _smallArticle(
-                          context,
-                          articles[1],
+                        _smallArticle(context ,articles[1],
                         ),
 
                       if (articles.length > 1)
                         const SizedBox(height: 25),
 
                       if (articles.length > 2)
-                        _smallArticle(
-                          context,
-                          articles[2],
+                        _smallArticle(context,articles[2],
                         ),
 
                       if (articles.length > 2)
                         const SizedBox(height: 25),
 
                       if (articles.length > 3)
-                        _smallArticle(
-                          context,
-                          articles[3],
+                        _smallArticle(context,articles[3],
                         ),
 
                       if (articles.length > 3)
                         const SizedBox(height: 25),
 
                       if (articles.length > 4)
-                        _smallArticle(
-                          context,
-                          articles[4],
+                        _smallArticle(context,articles[4],
                         ),
                     ],
                   ),
@@ -300,7 +246,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
 
   // ==========================================
   // Category
-  // ==========================================
+  
 
   Widget _category({
     required String text,
@@ -317,23 +263,16 @@ class _ExploreScreenState extends State<ExploreScreen> {
       ),
 
       decoration: BoxDecoration(
-        color: selected
-            ? AppColors.primary
-            : Colors.transparent,
-
-        borderRadius:
-            BorderRadius.circular(25),
+        color: selected? AppColors.primary: Colors.transparent,
+        borderRadius: BorderRadius.circular(25),
 
         border: Border.all(
-          color: selected
-              ? const Color(0xFFE9EDEC)
-              : const Color(0xFFE1E4E3),
+          color: selected? const Color(0xFFE9EDEC): const Color(0xFFE1E4E3),
         ),
       ),
 
       child: Text(
         text,
-
         style: const TextStyle(
           fontSize: 16,
           fontWeight: FontWeight.w500,
@@ -345,38 +284,26 @@ class _ExploreScreenState extends State<ExploreScreen> {
 
   // ==========================================
   // Main Article
-  // ==========================================
 
   Widget _mainArticle(
     ArticleModel article,
   ) {
     return Column(
-      crossAxisAlignment:
-          CrossAxisAlignment.start,
-
+      crossAxisAlignment:CrossAxisAlignment.start,
       children: [
-
         ClipRRect(
-          borderRadius:
-              BorderRadius.circular(10),
-
+          borderRadius:BorderRadius.circular(10),
           child: Image.network(
             article.urlToImage ?? '',
-
             width: double.infinity,
             height: 206,
-
             fit: BoxFit.cover,
-
-            errorBuilder:
-                (context, error, stackTrace) {
+            errorBuilder:(context, error, stackTrace) {
 
               return Container(
                 width: double.infinity,
                 height: 206,
-
                 color: Colors.grey.shade300,
-
                 child: const Icon(
                   Icons.image_not_supported,
                   color: Colors.grey,
@@ -390,7 +317,6 @@ class _ExploreScreenState extends State<ExploreScreen> {
 
         Text(
           article.title,
-
           style: const TextStyle(
             fontSize: 27,
             height: 1.15,
@@ -400,35 +326,26 @@ class _ExploreScreenState extends State<ExploreScreen> {
         ),
 
         const SizedBox(height: 12),
-
         Row(
           children: [
-
             Container(
               width: 26,
               height: 26,
-
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 color: Colors.grey
               ),
-
               child: const Icon(
                 Icons.person,
                 size: 16,
                 color: Colors.grey,
               ),
             ),
-
             const SizedBox(width: 8),
-
             Expanded(
-              child: Text(
-                article.author ??
-                    'Unknown author',
+              child: Text(article.author ??'Unknown author',
 
-                overflow:
-                    TextOverflow.ellipsis,
+                overflow:TextOverflow.ellipsis,
 
                 style: const TextStyle(
                   fontSize: 12,
@@ -438,10 +355,8 @@ class _ExploreScreenState extends State<ExploreScreen> {
             ),
 
             const SizedBox(width: 6),
-
             const Text(
               '•',
-
               style: TextStyle(
                 fontSize: 12,
                 color: Colors.grey,
@@ -449,12 +364,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
             ),
 
             const SizedBox(width: 6),
-
-            Text(
-              _formatDate(
-                article.publishedAt,
-              ),
-
+            Text(_formatDate(article.publishedAt,),
               style: const TextStyle(
                 fontSize: 12,
                 color: Colors.grey,
@@ -468,7 +378,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
 
   // ==========================================
   // Small Article
-  // ==========================================
+
 
   Widget _smallArticle(
     BuildContext context,
@@ -476,12 +386,9 @@ class _ExploreScreenState extends State<ExploreScreen> {
   ) {
     return GestureDetector(
       onTap: () {
-        Navigator.push(
-          context,
-
+        Navigator.push(context,
           MaterialPageRoute(
-            builder: (context) =>
-                ArticleScreen(
+            builder: (context) =>ArticleScreen(
               article: article,
             ),
           ),
@@ -489,31 +396,22 @@ class _ExploreScreenState extends State<ExploreScreen> {
       },
 
       child: Row(
-        crossAxisAlignment:
-            CrossAxisAlignment.center,
+        crossAxisAlignment:CrossAxisAlignment.center,
 
         children: [
-
           Expanded(
             child: Column(
-              crossAxisAlignment:
-                  CrossAxisAlignment.start,
-
+              crossAxisAlignment:CrossAxisAlignment.start,
               children: [
-
                 Text(
                   article.title,
-
                   maxLines: 2,
-
-                  overflow:
-                      TextOverflow.ellipsis,
+                  overflow:TextOverflow.ellipsis,
 
                   style: const TextStyle(
                     fontSize: 18,
                     height: 1.2,
-                    fontWeight:
-                        FontWeight.w600,
+                    fontWeight:FontWeight.w600,
                     color: Colors.black,
                   ),
                 ),
@@ -522,19 +420,13 @@ class _ExploreScreenState extends State<ExploreScreen> {
 
                 Row(
                   children: [
-
                     Container(
                       width: 24,
                       height: 24,
-
-                      decoration:
-                          BoxDecoration(
-                        shape:
-                            BoxShape.circle,
-                        color:
-                            Colors.grey.shade300,
+                      decoration:BoxDecoration(
+                        shape:BoxShape.circle,
+                        color:Colors.grey.shade300,
                       ),
-
                       child: const Icon(
                         Icons.person,
                         size: 15,
@@ -548,11 +440,9 @@ class _ExploreScreenState extends State<ExploreScreen> {
                       child: Text(
                         '${article.author ?? 'Unknown author'}  •  ${_formatDate(article.publishedAt)}',
 
-                        overflow:
-                            TextOverflow.ellipsis,
+                        overflow:TextOverflow.ellipsis,
 
-                        style:
-                            const TextStyle(
+                        style:const TextStyle(
                           fontSize: 11,
                           color: Colors.grey,
                         ),
@@ -565,28 +455,19 @@ class _ExploreScreenState extends State<ExploreScreen> {
           ),
 
           const SizedBox(width: 16),
-
           ClipRRect(
-            borderRadius:
-                BorderRadius.circular(10),
-
+            borderRadius:BorderRadius.circular(10),
             child: Image.network(
               article.urlToImage ?? '',
-
               width: 158,
               height: 108,
-
               fit: BoxFit.cover,
-
-              errorBuilder:
-                  (context, error, stackTrace) {
+              errorBuilder:(context, error, stackTrace) {
 
                 return Container(
                   width: 158,
                   height: 108,
-
                   color: Colors.grey.shade300,
-
                   child: const Icon(
                     Icons.image_not_supported,
                     color: Colors.grey,
@@ -602,17 +483,13 @@ class _ExploreScreenState extends State<ExploreScreen> {
 
   // ==========================================
   // Date
-  // ==========================================
 
   String _formatDate(String? date) {
     if (date == null || date.isEmpty) {
       return '';
     }
-
     try {
-      final DateTime parsedDate =
-          DateTime.parse(date);
-
+      final DateTime parsedDate =DateTime.parse(date);
       return '${parsedDate.day}/${parsedDate.month}/${parsedDate.year}';
     } catch (e) {
       return date;

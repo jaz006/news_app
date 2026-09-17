@@ -15,18 +15,15 @@ class SearchResultsScreen extends StatefulWidget {
   });
 
   @override
-  State<SearchResultsScreen> createState() =>
-      _SearchResultsScreenState();
+  State<SearchResultsScreen> createState() =>_SearchResultsScreenState();
 }
 
-class _SearchResultsScreenState
-    extends State<SearchResultsScreen> {
+class _SearchResultsScreenState extends State<SearchResultsScreen> {
   int selectedTab = 0;
 
   late Future<List<ArticleModel>> articlesFuture;
 
   final SearchRepo searchRepo = SearchRepo();
-
   final List<String> categories = [
     'All',
     'Business',
@@ -88,17 +85,13 @@ class _SearchResultsScreenState
 
     // All
     requests.add(
-      searchRepo
-          .searchArticles(
+      searchRepo.searchArticles(
             searchText: widget.searchText,
             sortBy: 'publishedAt',
-          )
-          .then((result) {
+          ).then((result) {
         result.fold(
           (error) {},
-          (data) {
-            categoryCounts['All'] =
-                data['totalResults'] ?? 0;
+          (data) {categoryCounts['All'] =data['totalResults'] ?? 0;
           },
         );
       }),
@@ -106,20 +99,15 @@ class _SearchResultsScreenState
 
     // Categories
     for (int i = 1; i < categories.length; i++) {
-      final String category =
-          categories[i].toLowerCase();
-
+      final String category =categories[i].toLowerCase();
       requests.add(
-        searchRepo
-            .getCategoryCount(
+        searchRepo.getCategoryCount(
               searchText: widget.searchText,
               category: category,
-            )
-            .then((result) {
+            ).then((result) {
           result.fold(
             (error) {},
-            (count) {
-              categoryCounts[categories[i]] = count;
+            (count) {categoryCounts[categories[i]] = count;
             },
           );
         }),
@@ -149,7 +137,7 @@ class _SearchResultsScreenState
       body: SafeArea(
         child: Column(
           children: [
-            // ================= HEADER =================
+            //  HEADER 
 
             Padding(
               padding: const EdgeInsets.only(
@@ -165,8 +153,8 @@ class _SearchResultsScreenState
                     },
                     child: SvgPicture.asset(
                       AppSvgs.left_arrow,
-                      width: 24,
-                      height: 24,
+                      width: 16,
+                      height: 11,
                     ),
                   ),
 
@@ -190,7 +178,7 @@ class _SearchResultsScreenState
 
             const SizedBox(height: 30),
 
-            // ================= CATEGORIES =================
+            // CATEGORIES 
 
             SizedBox(
               height: 42,
@@ -202,14 +190,9 @@ class _SearchResultsScreenState
                 ),
                 child: Row(
                   children: [
-                    for (int i = 0;
-                        i < categories.length;
-                        i++) ...[
-                      _buildCategory(
+                    for (int i = 0;i < categories.length;i++) ...[_buildCategory(
                         title: categories[i],
-                        count: categoryCounts[
-                                    categories[i]]
-                                .toString(),
+                        count: categoryCounts[categories[i]].toString(),
                         index: i,
                       ),
 
@@ -223,7 +206,7 @@ class _SearchResultsScreenState
 
             const SizedBox(height: 20),
 
-            // ================= ARTICLES =================
+            //ARTICLES
 
             Expanded(
               child: FutureBuilder<List<ArticleModel>>(
@@ -235,12 +218,10 @@ class _SearchResultsScreenState
                       child: CircularProgressIndicator(),
                     );
                   }
-
                   if (snapshot.hasError) {
                     return Center(
                       child: Padding(
-                        padding:
-                            const EdgeInsets.all(24),
+                        padding:const EdgeInsets.all(24),
                         child: Text(
                           snapshot.error.toString(),
                           textAlign: TextAlign.center,
@@ -277,17 +258,12 @@ class _SearchResultsScreenState
                     itemBuilder: (context, index) {
                       final article = articles[index];
 
-                      // =================================================
-                      // HERE IS THE CONNECTION WITH ARTICLE SCREEN
-                      // =================================================
-
+                      // THE CONNECTION WITH ARTICLE SCREEN
                       return GestureDetector(
                         onTap: () {
-                          Navigator.push(
-                            context,
+                          Navigator.push(context,
                             MaterialPageRoute(
-                              builder: (context) =>
-                                  ArticleScreen(
+                              builder: (context) =>ArticleScreen(
                                 article: article,
                               ),
                             ),
@@ -295,8 +271,7 @@ class _SearchResultsScreenState
                         },
 
                         // Article card
-                        child: _buildArticle(
-                          article: article,
+                        child: _buildArticle(article: article,
                         ),
                       );
                     },
@@ -310,7 +285,7 @@ class _SearchResultsScreenState
     );
   }
 
-  // ================= CATEGORY =================
+  //  CATEGORY 
 
   Widget _buildCategory({
     required String title,
@@ -330,11 +305,8 @@ class _SearchResultsScreenState
           vertical: 10,
         ),
         decoration: BoxDecoration(
-          color: isSelected
-              ? const Color(0xFFF0F4FA)
-              : Colors.transparent,
-          borderRadius:
-              BorderRadius.circular(20),
+          color: isSelected? AppColors.primary: Colors.transparent,
+          borderRadius:BorderRadius.circular(20),
         ),
         child: RichText(
           text: TextSpan(
@@ -363,7 +335,7 @@ class _SearchResultsScreenState
     );
   }
 
-  // ================= ARTICLE CARD =================
+  // ARTICLE CARD 
 
   Widget _buildArticle({
     required ArticleModel article,
@@ -371,45 +343,37 @@ class _SearchResultsScreenState
     return SizedBox(
       height: 138,
       child: Row(
-        crossAxisAlignment:
-            CrossAxisAlignment.start,
+        crossAxisAlignment:CrossAxisAlignment.start,
         children: [
           Expanded(
-            child: Padding(
-              padding: const EdgeInsets.only(
+            child: Padding(padding: const EdgeInsets.only(
                 top: 2,
                 right: 12,
               ),
               child: Column(
-                crossAxisAlignment:
-                    CrossAxisAlignment.start,
+                crossAxisAlignment:CrossAxisAlignment.start,
                 children: [
                   Text(
                     article.title,
                     maxLines: 2,
-                    overflow:
-                        TextOverflow.ellipsis,
+                    overflow:TextOverflow.ellipsis,
                     style: const TextStyle(
                       fontSize: 20,
                       height: 1.15,
-                      fontWeight:
-                          FontWeight.w600,
+                      fontWeight:FontWeight.w600,
                       color: Colors.black,
                     ),
                   ),
 
                   const SizedBox(height: 10),
-
                   Row(
                     children: [
                       Container(
                         width: 28,
                         height: 28,
-                        decoration:
-                            const BoxDecoration(
+                        decoration:const BoxDecoration(
                           shape: BoxShape.circle,
-                          color:
-                              Color(0xFFD9D9D9),
+                          color:Color(0xFFD9D9D9),
                         ),
                         child: const Icon(
                           Icons.person,
@@ -424,10 +388,8 @@ class _SearchResultsScreenState
                         child: Text(
                           '${article.author ?? 'Unknown author'}  ·  ${_formatDate(article.publishedAt)}',
                           maxLines: 1,
-                          overflow:
-                              TextOverflow.ellipsis,
-                          style:
-                              const TextStyle(
+                          overflow:TextOverflow.ellipsis,
+                          style:const TextStyle(
                             fontSize: 12,
                             color: Colors.grey,
                           ),
@@ -440,24 +402,20 @@ class _SearchResultsScreenState
             ),
           ),
 
-          // ================= ARTICLE IMAGE =================
+          // ARTICLE IMAGE 
 
           ClipRRect(
-            borderRadius:
-                BorderRadius.circular(10),
+            borderRadius:BorderRadius.circular(10),
             child: Image.network(
               article.urlToImage ?? '',
               width: 145,
               height: 90,
               fit: BoxFit.cover,
-              errorBuilder:
-                  (context, error,
-                      stackTrace) {
+              errorBuilder:(context, error,stackTrace) {
                 return Container(
                   width: 145,
                   height: 90,
-                  color:
-                      Colors.grey.shade300,
+                  color:Colors.grey.shade300,
                   child: const Icon(
                     Icons.image_not_supported,
                     color: Colors.grey,
@@ -471,7 +429,7 @@ class _SearchResultsScreenState
     );
   }
 
-  // ================= DATE =================
+  // DATE 
 
   String _formatDate(String? date) {
     if (date == null || date.isEmpty) {
@@ -479,8 +437,7 @@ class _SearchResultsScreenState
     }
 
     try {
-      final DateTime parsedDate =
-          DateTime.parse(date);
+      final DateTime parsedDate =DateTime.parse(date);
 
       return '${_getMonthName(parsedDate.month)} ${parsedDate.day}, ${parsedDate.year}';
     } catch (e) {
