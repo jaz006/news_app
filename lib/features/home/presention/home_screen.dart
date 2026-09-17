@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:news_app/core/network/api_helper.dart';
 import 'package:news_app/core/network/end_points.dart';
 import 'package:news_app/features/home/data/models/home_model.dart';
@@ -57,29 +58,25 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const SizedBox(height: 8),
-                  Text(
-                    _formatDate(featuredList[_currentPage].publishedAt),
-                    style: const TextStyle(
-                      fontSize: 14,
-                      color: Colors.black54,
-                    ),
-                  ),
-                  const SizedBox(height: 12),
+                 
+                  const SizedBox(height: 14),
 
                   // Featured Carousel
-                  SizedBox(
-                    height: 320,
-                    child: PageView.builder(
-                      itemCount: featuredList.length,
-                      onPageChanged: (index) {
-                        setState(() {
-                          _currentPage = index;
-                        });
-                      },
-                      itemBuilder: (context, index) {
-                        return _FeaturedCard(article: featuredList[index]);
-                      },
+                  Center(
+                    child: SizedBox(
+                      width: 376.w,
+                      height: 274.h,
+                      child: PageView.builder(
+                        itemCount: featuredList.length,
+                        onPageChanged: (index) {
+                          setState(() {
+                            _currentPage = index;
+                          });
+                        },
+                        itemBuilder: (context, index) {
+                          return _FeaturedCard(article: featuredList[index]);
+                        },
+                      ),
                     ),
                   ),
                   const SizedBox(height: 10),
@@ -110,13 +107,17 @@ class _HomeScreenState extends State<HomeScreen> {
                       const Text(
                         'Most Popular',
                         style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
+                          fontSize: 24,
+                          fontWeight: FontWeight.w600,
                         ),
                       ),
                       TextButton(
                         onPressed: () {},
-                        child: const Text('See More'),
+                        child: const Text('See More' , style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                          color: Color(0xFF2D5BD0),
+                        ),),
                       ),
                     ],
                   ),
@@ -125,22 +126,20 @@ class _HomeScreenState extends State<HomeScreen> {
 
                // Horizontal list of popular articles
  SizedBox(
-    height: 260,
+    height: 350,
     child: ListView.separated(
       scrollDirection: Axis.horizontal,
       itemCount: popular.length,
       separatorBuilder: (context, index) => const SizedBox(width: 14),
       itemBuilder: (context, index) {
         return SizedBox(
-          width: 170,
+          width: 300.w,
+          height: 350.h,
           child: _PopularCard(article: popular[index]),
         );
       },
     ),
   ),
-
-
-
                   const SizedBox(height: 20),
                 ],
               ),
@@ -149,19 +148,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
     );
-  }
-
-  String _formatDate(String? isoDate) {
-    if (isoDate == null) return '';
-    final date = DateTime.tryParse(isoDate);
-    if (date == null) return '';
-    const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
-    const months = [
-      'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-      'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
-    ];
-    return '${days[date.weekday - 1]} ${date.day} ${months[date.month - 1]}, ${date.year}';
-  }
+  } 
 }
 
 class _FeaturedCard extends StatelessWidget {
@@ -183,6 +170,7 @@ class _FeaturedCard extends StatelessWidget {
             right: 0,
             bottom: 0,
             child: Container(
+  
               padding: const EdgeInsets.all(16),
               decoration: const BoxDecoration(
                 gradient: LinearGradient(
@@ -198,7 +186,7 @@ class _FeaturedCard extends StatelessWidget {
                   Expanded(
                     child: Text(
                       article.title,
-                      maxLines: 3,
+                      maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                       style: const TextStyle(
                         color: Colors.white,
@@ -237,39 +225,43 @@ class _PopularCard extends StatelessWidget {
     return InkWell(
       onTap: () {
       },
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(16),
-            child: SizedBox(
-              height: 170,
-              width: double.infinity,
-              child: article.urlToImage != null
-                  ? Image.network(article.urlToImage!, fit: BoxFit.cover)
-                  : Container(color: Colors.grey.shade300),
+      child: Container(
+        width: 300.w,
+        height: 350.h,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(16),
+              child: SizedBox(
+                height: 250,
+                width: double.infinity,
+                child: article.urlToImage != null
+                    ? Image.network(article.urlToImage!, fit: BoxFit.cover)
+                    : Container(color: Colors.grey.shade300),
+              ),
             ),
-          ),
-          const SizedBox(height: 6),
-          Text(
-            article.title,
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis,
-            style: const TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 14,
-              height: 1.2,
+            const SizedBox(height: 6),
+            Text(
+              article.title,
+              maxLines: 3,
+              overflow: TextOverflow.ellipsis,
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 14,
+                height: 1.2,
+              ),
             ),
-          ),
-          const SizedBox(height: 2),
-          Text(
-            article.source.name,
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-            style: TextStyle(color: Colors.grey.shade500, fontSize: 12),
-          ),
-        ],
+            const SizedBox(height: 2),
+            Text(
+              article.source.name,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: TextStyle(color: Colors.grey.shade500, fontSize: 12),
+            ),
+          ],
+        ),
       ),
     );
   }

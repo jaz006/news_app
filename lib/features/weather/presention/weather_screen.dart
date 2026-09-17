@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:news_app/core/helper/app_navigation.dart';
 import 'package:news_app/core/network/api_helper.dart';
 import 'package:news_app/core/network/end_points.dart';
+import 'package:news_app/core/utilies/app_assests.dart';
 import 'package:news_app/core/utilies/app_colors.dart';
 import 'package:news_app/features/home/presention/map_screen.dart';
 import 'package:news_app/features/weather/data/models/weather_model.dart';
@@ -110,177 +111,215 @@ class _WeatherScreenState extends State<WeatherScreen> {
 
   Widget _buildWeatherBody(WeatherModel weather) {
     return SingleChildScrollView(
-      padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 16.h),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // Header: Good Morning + date + small icon/temp
-          Container(
-            width: double.infinity,
-            padding: EdgeInsets.all(16.w),
-            decoration: BoxDecoration(
-              color: const Color(0xFFDCE6F7),
-              borderRadius: BorderRadius.circular(12.r),
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text('Good Morning,', style: TextStyle(fontSize: 14.sp)),
-                    Text(
-                      _todayDate,
-                      style: TextStyle(
-                        fontSize: 14.sp,
-                        fontWeight: FontWeight.bold,
+      
+      child: Padding(
+        
+        padding: const EdgeInsets.symmetric( vertical: 16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Header: Good Morning + date + small icon/temp
+            Container(
+              width: 430.w,
+              height:92.h,
+              padding: EdgeInsets.all(16.w),
+              decoration: BoxDecoration(
+                color: const Color(0xFFE9EEFA),
+                borderRadius: BorderRadius.circular(12.r),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('Good Morning :)', style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w400)),
+                      SizedBox(height: 10.h),
+                      Text(
+                        _todayDate,
+                        style: TextStyle(
+                          fontSize: 18.sp,
+                          fontWeight: FontWeight.w600,
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-                Row(
-                  children: [
-                    Text('☀️'),
-                    SizedBox(width: 4.w),
-                    Text(
-                      '${weather.main} ${weather.temp.round()}°C',
-                      style: TextStyle(fontSize: 13.sp),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-
-          SizedBox(height: 24.h),
-
-          // City name
-          Text(
-            '${weather.cityName} - ${weather.country}',
-            style: TextStyle(fontSize: 24.sp, fontWeight: FontWeight.bold),
-          ),
-
-          SizedBox(height: 12.h),
-
-          // Big temp + icon
-          Row(
-            children: [
-              Text(
-                '${weather.temp.round()}',
-                style: TextStyle(fontSize: 56.sp, fontWeight: FontWeight.bold),
-              ),
-              SizedBox(width: 12.w),
-              Text('☀️', style: TextStyle(fontSize: 60.sp)),
-            ],
-          ),
-
-          Text(
-            '${weather.main} - ${weather.description[0].toUpperCase()}${weather.description.substring(1)}',
-            style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w500),
-          ),
-          Text(
-            'Feels like ${weather.feelsLike.round()}',
-            style: TextStyle(fontSize: 13.sp, color: Colors.grey),
-          ),
-
-          SizedBox(height: 24.h),
-
-          // Grid of stats
-          Row(
-            children: [
-              Expanded(
-                child: _statCard(
-                  icon: Icons.thermostat,
-                  value: '${weather.tempInFahrenheit.round()}°',
-                  label: 'Fahrenheit',
-                ),
-              ),
-              SizedBox(width: 12.w),
-              Expanded(
-                child: _statCard(
-                  icon: Icons.air,
-                  value: '${weather.windSpeed} m/h',
-                  label: 'Wind Speed',
-                ),
-              ),
-            ],
-          ),
-          SizedBox(height: 12.h),
-          Row(
-            children: [
-              Expanded(
-                child: _statCard(
-                  icon: Icons.water_drop,
-                  value: '${weather.humidity}%',
-                  label: 'Humidity',
-                ),
-              ),
-              SizedBox(width: 12.w),
-              Expanded(
-                child: _statCard(
-                  icon: Icons.speed,
-                  value: '${weather.pressure} hPa',
-                  label: 'Pressure',
-                ),
-              ),
-            ],
-          ),
-
-          SizedBox(height: 32.h),
-
-          SizedBox(
-            width: double.infinity,
-            height: 50.h,
-            child: ElevatedButton.icon(
-              onPressed: () {
-                MyNavigator.goTo(context, toPage: MapScreen());
-              },
-              icon: const Icon(Icons.location_on, color: Colors.white),
-              label: const Text(
-                'Change Location',
-                style: TextStyle(color: Colors.white),
-              ),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFF2D5BD0),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(50.r),
-                ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Text('☀️', style: TextStyle(fontSize: 32.sp)),
+                      SizedBox(width: 4.w),
+                      Text(
+                        '${weather.main} ${weather.temp.round()}°C',
+                        style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w600),
+                      ),
+                    ],
+                  ),
+                ],
               ),
             ),
-          ),
-        ],
+        
+            SizedBox(height: 24.h),
+        
+            // City name
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24),
+              child: Text(
+                '${weather.cityName} - ${weather.country}',
+                style: TextStyle(fontSize: 32.sp, fontWeight: FontWeight.w600),
+              ),
+            ),
+        
+            SizedBox(height: 12.h),
+        
+            // Big temp + icon
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24),
+              child: Row(
+                children: [
+                  Text(
+                    '${weather.temp.round()}',
+                    style: TextStyle(fontSize: 48.sp, fontWeight: FontWeight.bold),
+                  ),
+                  Spacer(),
+                  Image.asset(AppImages.sun, width: 76.w, height: 76.h),
+                ],
+              ),
+            ),
+         
+          SizedBox(height: 8.h),
+
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24),
+              child: Text(
+                '${weather.main} - ${weather.description[0].toUpperCase()}${weather.description.substring(1)}',
+                style: TextStyle(fontSize: 32.sp, fontWeight: FontWeight.w500),
+              ),
+            ),
+
+           
+
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24),
+              child: Text(
+                'Feels like ${weather.feelsLike.round()}',
+                style: TextStyle(fontSize: 16.sp, color: AppColors.secondary_text),
+              ),
+            ),
+        
+            SizedBox(height: 32.h),
+        
+            // Grid of stats
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: _statCard(
+                      imagepath: AppImages.temp1,
+                      value: '${weather.tempInFahrenheit.round()}°',
+                      label: 'Fahrenheit',
+                    ),
+                  ),
+                  SizedBox(width: 12.w),
+                  Expanded(
+                    child: _statCard(
+                      imagepath: AppImages.temp2,
+                      value: '${weather.windSpeed} m/h',
+                      label: 'Wind Speed',
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(height: 12.h),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: _statCard(
+                      imagepath: AppImages.temp3,
+                      value: '${weather.pressure} hPa',
+                      label: 'Pressure',
+                    ),
+                  ),
+                  SizedBox(width: 12.w),
+                  Expanded(
+                    child: _statCard(
+                      imagepath: AppImages.temp4,
+                      value: '${weather.humidity}%',
+                      label: 'Humidity',
+                    ),
+                  ),
+                  
+                  
+                ],
+              ),
+            ),
+        
+            SizedBox(height: 80.h),
+        
+            Center(
+              child: SizedBox(
+                width: 244.w,
+                height: 56.h,
+                child: ElevatedButton.icon(
+                  onPressed: () {
+                    MyNavigator.goTo(context, toPage: MapScreen());
+                  },
+                  label: const Text(
+                    'Change Location',
+                    style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w500),
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xFF2D5BD0),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(128.r),
+                    ),
+                    
+                  ),
+                  icon: const Icon(Icons.location_on, color: Colors.white),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
 
   Widget _statCard({
-    required IconData icon,
+    required String imagepath,
     required String value,
     required String label,
   }) {
     return Container(
       padding: EdgeInsets.all(14.w),
       decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(12.r),
-        boxShadow: [
-          BoxShadow(color: Colors.black.withOpacity(0.05), blurRadius: 6),
-        ],
+        color: Color(0xFFFFFFFF),
+        borderRadius: BorderRadius.circular(20.r),
+        
       ),
       child: Row(
         children: [
-          Icon(icon, color: const Color(0xFF2D5BD0)),
+          Image.asset(
+            imagepath,
+            width: 42.w,
+            height: 42.h,
+          ),
           SizedBox(width: 8.w),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
                 value,
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14.sp),
+                style: TextStyle(fontWeight: FontWeight.w400, fontSize: 16.sp, color: Color(0xFF2D5BD0)),
               ),
               Text(
                 label,
-                style: TextStyle(fontSize: 11.sp, color: Colors.grey),
+                style: TextStyle(fontSize: 12.sp,
+                fontWeight: FontWeight.w400,
+                 color: AppColors.secondary_text),
               ),
             ],
           ),

@@ -9,6 +9,12 @@ abstract class AppImages {
  static final String earth='assets/images/earth.png';
  static final String bookMark='assets/images/book_mark.png';
  static final String weather='assets/images/weather.png';
+ static final String sun='assets/images/sun.png';
+
+ static final String temp1='assets/images/temp1.png';
+ static final String temp2='assets/images/temp2.png';
+ static final String temp3='assets/images/temp3.png';
+ static final String temp4='assets/images/temp4.png';
 
 
 
