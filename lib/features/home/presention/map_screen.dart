@@ -4,7 +4,6 @@ import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:news_app/core/helper/app_navigation.dart';
 import 'package:news_app/core/utilies/app_colors.dart';
-import 'package:news_app/features/home/presention/home_screen.dart';
 import 'package:news_app/features/home/presention/main_screen.dart';
 
 class MapScreen extends StatefulWidget {
@@ -20,7 +19,7 @@ class _MapScreenState extends State<MapScreen> {
   bool _isLoading = true;
   String? _errorMessage;
 
-  Set<Marker> _markers = {};
+  final Set<Marker> _markers = {};
 
   @override
   void initState() {

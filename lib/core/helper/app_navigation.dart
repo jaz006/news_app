@@ -19,21 +19,21 @@
      if (type == NavigatorType.push) {
        return Navigator.push<T>(
          context,
-        route as Route<T>,
+        route,
        );
      } 
     
      else if (type == NavigatorType.pushReplacement) {
        return Navigator.pushReplacement<T, T>(
                 context,
-                route as Route<T>,
+                route,
               );
      } 
     
      else {
        return Navigator.pushAndRemoveUntil<T>(
          context,
-       route as Route<T>,
+       route,
         (r) => false,
      );
    }

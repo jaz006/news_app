@@ -225,7 +225,7 @@ class _PopularCard extends StatelessWidget {
     return InkWell(
       onTap: () {
       },
-      child: Container(
+      child: SizedBox(
         width: 300.w,
         height: 350.h,
         child: Column(

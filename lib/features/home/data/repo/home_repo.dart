@@ -22,7 +22,7 @@ class HomeRepo {
       final response = await apiHelper.getRequest(
         endPoint: EndPoints.topHeadlines,
         queryParams: {
-          if (q != null) 'q': q,
+          'q': ?q,
           'apiKey': _apiKey,
           'category': category,
           'country': country,
